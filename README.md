@@ -31,14 +31,14 @@ import (
 	"os"
 
 	"github.com/0x51-dev/constructor"
-	"github.com/0x51-dev/constructor/fmt/golang"
+	"github.com/0x51-dev/constructor/fmt/gofmt"
 )
 
 func main() {
 	data, _ := os.ReadFile("data.json")
 	n, _ := constructor.Construct(bytes.NewReader(data))
-	str, _ := golang.NodeToGo("Users", n)
-	fmt.Println(str) // Prints out a non-formatted golang struct.
+	str, _ := gofmt.NodeToGo("Users", n)
+	fmt.Println(str) // Prints out formatted Golang struct.
 }
 
 ```
@@ -56,4 +56,5 @@ type Users struct {
 		Name string      `json:"name"`
 	} `json:"users"`
 }
+
 ```

@@ -1,10 +1,10 @@
-package golang_test
+package gofmt_test
 
 import (
 	"bytes"
 	"fmt"
 	"github.com/0x51-dev/constructor"
-	"github.com/0x51-dev/constructor/fmt/golang"
+	"github.com/0x51-dev/constructor/fmt/gofmt"
 )
 
 func ExampleNodeToGo() {
@@ -12,10 +12,10 @@ func ExampleNodeToGo() {
 	"users": [
 		{
 			"first_name": "Alice",
-			"username": "alice"
+			"username": "alice",
+			"age": "23"
 		},
 		{
-			"first_name": "Bob",
 			"username": "bob",
 			"age": 42
 		}
@@ -25,17 +25,17 @@ func ExampleNodeToGo() {
 	if err != nil {
 		panic(err)
 	}
-	str, err := golang.NodeToGo("Users", n)
+	str, err := gofmt.NodeToGo("Users", n)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println(str)
 	// Output:
 	// type Users struct {
-	// Users []struct {
-	// Age json.Number `json:"age"`
-	// FirstName string `json:"first_name"`
-	// Username string `json:"username"`
-	// } `json:"users"`
+	// 	Users []struct {
+	// 		Age any /* json.Number, string */ `json:"age"`
+	// 		FirstName string `json:"first_name"`
+	// 		Username string `json:"username"`
+	// 	} `json:"users"`
 	// }
 }

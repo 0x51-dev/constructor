@@ -40,11 +40,11 @@ func (s *Struct) Combine(n Node) (Node, error) {
 		}
 		for k, v := range t.Types {
 			if v2, ok := types[k]; ok {
-				n, err := v2.Combine(v)
-				if err != nil {
-					return nil, err
+				if n, err := v2.Combine(v); err == nil {
+					types[k] = n
+				} else {
+					types[k] = &Or{Types: []Node{v, v2}}
 				}
-				types[k] = n
 			} else {
 				types[k] = v
 			}

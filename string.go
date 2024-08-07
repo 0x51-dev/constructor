@@ -14,10 +14,6 @@ func (s *String) Combine(n Node) (Node, error) {
 }
 
 func (s *String) Equals(n Node) bool {
-	switch t := n.(type) {
-	case *String:
-		return true
-	default:
-		return t.Equals(s)
-	}
+	_, ok := n.(*String)
+	return ok
 }

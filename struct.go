@@ -66,6 +66,9 @@ func (s *Struct) Equals(n Node) bool {
 		if v != t.SortedKeys[k] {
 			return false
 		}
+		if !s.Types[v].Equals(t.Types[v]) {
+			return false
+		}
 	}
 	return true
 }

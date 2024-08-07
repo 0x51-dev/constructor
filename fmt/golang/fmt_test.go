@@ -11,10 +11,12 @@ func ExampleNodeToGo() {
 	raw := `{
 	"users": [
 		{
-			"name": "Alice"
+			"first_name": "Alice",
+			"username": "alice"
 		},
 		{
-			"name": "Bob",
+			"first_name": "Bob",
+			"username": "bob",
 			"age": 42
 		}
 	]
@@ -32,7 +34,8 @@ func ExampleNodeToGo() {
 	// type Users struct {
 	// Users []struct {
 	// Age json.Number `json:"age"`
-	// Name string `json:"name"`
+	// FirstName string `json:"first_name"`
+	// Username string `json:"username"`
 	// } `json:"users"`
 	// }
 }

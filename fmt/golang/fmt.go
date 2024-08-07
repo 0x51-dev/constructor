@@ -43,7 +43,7 @@ func nodeToGo(n Node) (string, error) {
 			if err != nil {
 				return "", err
 			}
-			fields += fmt.Sprintf("%s %s `json:\"%s\"`\n", strings.Title(k), t, k)
+			fields += fmt.Sprintf("%s %s `json:\"%s\"`\n", sanitiseName(k), t, k)
 		}
 		return "struct {\n" + fields + "}", nil
 	case *Or:
@@ -59,4 +59,12 @@ func nodeToGo(n Node) (string, error) {
 	default:
 		return "", fmt.Errorf("unexpected type %T", n)
 	}
+}
+
+func sanitiseName(s string) string {
+	parts := strings.Split(s, "_")
+	for i, p := range parts {
+		parts[i] = fmt.Sprintf("%s%s", strings.ToUpper(p[:1]), p[1:])
+	}
+	return strings.Join(parts, "")
 }

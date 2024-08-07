@@ -1,7 +1,21 @@
 package constructor
 
+import (
+	"slices"
+	"strings"
+)
+
 type Or struct {
 	Types []Node
+}
+
+func NewOr(types []Node) *Or {
+	slices.SortFunc(types, func(a, b Node) int {
+		return strings.Compare(a.String(), b.String())
+	})
+	return &Or{
+		Types: types,
+	}
 }
 
 func (o *Or) Combine(n Node) (Node, error) {
@@ -18,9 +32,7 @@ func (o *Or) Combine(n Node) (Node, error) {
 			}
 			u = append(u, v)
 		}
-		return &Or{
-			Types: u,
-		}, nil
+		return NewOr(u), nil
 	default:
 		for i, v := range o.Types {
 			if v.Equals(n) {
@@ -30,17 +42,13 @@ func (o *Or) Combine(n Node) (Node, error) {
 				u := make([]Node, len(o.Types))
 				copy(u, o.Types)
 				u[i] = n
-				return &Or{
-					Types: u,
-				}, nil
+				return NewOr(u), nil
 			}
 		}
 		u := make([]Node, len(o.Types)+1)
 		copy(u, o.Types)
 		u[len(o.Types)] = n
-		return &Or{
-			Types: u,
-		}, nil
+		return NewOr(u), nil
 	}
 }
 

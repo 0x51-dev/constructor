@@ -34,7 +34,7 @@ func ExampleNodeToGo() {
 	// type Users struct {
 	// 	Users []struct {
 	// 		Age any /* json.Number, string */ `json:"age"`
-	// 		FirstName string `json:"first_name"`
+	// 		FirstName *string `json:"first_name"`
 	// 		Username string `json:"username"`
 	// 	} `json:"users"`
 	// }

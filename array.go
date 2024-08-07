@@ -19,9 +19,7 @@ func (a *Array) Combine(n Node) (Node, error) {
 			}, nil
 		}
 	}
-	return &Or{
-		Types: []Node{a, n},
-	}, nil
+	return NewOr([]Node{a, n}), nil
 }
 
 func (a *Array) Equals(n Node) bool {

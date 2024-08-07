@@ -19,9 +19,7 @@ func (o *Optional) Combine(n Node) (Node, error) {
 			}, nil
 		}
 	}
-	return &Or{
-		Types: []Node{o, n},
-	}, nil
+	return NewOr([]Node{o, n}), nil
 }
 
 func (o *Optional) Equals(n Node) bool {

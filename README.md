@@ -10,10 +10,12 @@ Given the following JSON data dump:
 {
   "users": [
     {
-      "name": "Alice"
+      "first_name": "Alice",
+      "username": "alice",
+      "age": "23"
     },
     {
-      "name": "Bob",
+      "username": "bob",
       "age": 42
     }
   ]
@@ -48,12 +50,11 @@ Output:
 ```go
 package users
 
-import "encoding/json"
-
 type Users struct {
 	Users []struct {
-		Age  json.Number `json:"age"`
-		Name string      `json:"name"`
+		Age       any /* json.Number, string */ `json:"age"`
+		FirstName *string                       `json:"first_name"`
+		Username  string                        `json:"username"`
 	} `json:"users"`
 }
 

@@ -36,17 +36,21 @@ func (s *Struct) Combine(n Node) (Node, error) {
 	case *Struct:
 		types := make(map[string]Node)
 		for k, v := range s.Types {
-			types[k] = v
+			if _, ok := t.Types[k]; ok {
+				types[k] = v
+			} else {
+				types[k] = &Optional{Type: v}
+			}
 		}
 		for k, v := range t.Types {
 			if v2, ok := types[k]; ok {
 				if n, err := v2.Combine(v); err == nil {
 					types[k] = n
 				} else {
-					types[k] = &Or{Types: []Node{v, v2}}
+					types[k] = NewOr([]Node{v, v2})
 				}
 			} else {
-				types[k] = v
+				types[k] = &Optional{Type: v}
 			}
 		}
 		return NewStruct(types), nil
